@@ -1,7 +1,7 @@
 "use strong";
 "use strict";
 
-module.exports.makeMaybePromise = function(promiseConstructor) {
+module.exports = function maybePromiseFactory(promiseConstructor) {
 	return function maybePromise(f, ...args) {
 		let result;
 		try {
