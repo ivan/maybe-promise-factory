@@ -38,7 +38,7 @@ maybePromise(asyncSum, 1, 'x').catch(err => console.error(err)); // TypeError
 
 The maybePromiseFactory accepts two arguments:
 
-* @param {class} `promiseConstructor` A Promise implementation (e.g. `Bluebird` or `Promise`)
-* @param {boolean} `[useAnyThenable]` If truthy, any Promise implementation is considered a promise; otherwise, only instances of the `promiseConstructor` are considered promises.
+* {class} `promiseConstructor` A Promise implementation (e.g. `Bluebird` or `Promise`)
+* {boolean} `[useAnyThenable]` If truthy, any Promise implementation is considered a promise; otherwise, only instances of the `promiseConstructor` are considered promises.
 
 The maybePromiseFactory returns a maybePromise function, which is passed a function (synchronous or asynchronous) and any parameters to invoke it with. It returns an instance of `promiseConstructor`.
