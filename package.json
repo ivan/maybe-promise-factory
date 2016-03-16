@@ -1,17 +1,17 @@
 {
   "name": "maybe-promise-factory",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Calls a function and wraps the retval or exception in a Promise only if it didn't already return a Promise; like Twisted's maybeDeferred. Turns a sync-or-Promise API into a Promise API.",
   "keywords": ["promise"],
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ludios/maybe-promise-factory.git"
+    "url": "git+https://github.com/mmiller42/maybe-promise-factory.git"
   },
   "author": "Ivan Kozik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ludios/maybe-promise-factory/issues"
+    "url": "https://github.com/mmiller42/maybe-promise-factory/issues"
   },
-  "homepage": "https://github.com/ludios/maybe-promise-factory"
+  "homepage": "https://github.com/mmiller42/maybe-promise-factory"
 }
