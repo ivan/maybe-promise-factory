@@ -2,7 +2,9 @@
   "name": "maybe-promise-factory",
   "version": "1.0.0",
   "description": "The maybePromiseFactory normalizes synchronous values and asynchronous values by always returning a Promise.",
-  "keywords": ["promise"],
+  "keywords": [
+    "promise"
+  ],
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -13,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/mmiller42/maybe-promise-factory/issues"
   },
-  "homepage": "https://github.com/mmiller42/maybe-promise-factory"
+  "homepage": "https://github.com/mmiller42/maybe-promise-factory",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^8.3.1"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha spec.js"
+  }
 }
