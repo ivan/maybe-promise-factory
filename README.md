@@ -1,14 +1,16 @@
 # maybe-promise-factory
-The maybePromiseFactory normalizes synchronous values and asynchronous values by always returning a Promise. The
-factory uses the ES6 Promise implementation by default but can use other Promise implementations. The maybePromise
-function accepts a function argument which is invoked and whose result is used, or any other value, which is coerced
-into a promise if it isn't one.
+The maybePromiseFactory normalizes synchronous values and asynchronous values by always returning a Promise.
+
+* The factory uses the ES6 Promise implementation by default but can use other Promise implementations.
+* The returned maybePromise function accepts an argument and converts it to a promise if it is another type of value.
+* If it is passed a function, it invokes it and applies the same rules to the result of the function to promisify it.
+* If the invoked function throws an exception, it is caught and a rejected Promise is returned.
 
 ## Installation
 
 Install with `npm install maybe-promise-factory`.
 
-## Usage
+## Usage Examples
 
 ```js
 const maybePromise = require('maybe-promise-factory')();
@@ -18,11 +20,11 @@ maybePromise(42).then(res => console.log(res)); // 42
 // If passed a Promise, simply returns the Promise.
 maybePromise(new Promise(resolve => resolve(42))).then(res => console.log(res)); // 42
 
-// If passed a function, invokes the function. If the function returns a non-Promise value, coerces the result into an
-// immediately-resolved Promise.
+// If passed a function, invokes the function. If the function returns a non-Promise value,
+// coerces the result into an immediately-resolved Promise.
 maybePromise(syncSum.bind(null, 1, 2)).then(res => console.log(res)); // 3
-// If passed a function, invokes the function. Thrown exceptions are caught and the Promise is rejected with the
-// exception.
+// If passed a function, invokes the function. Thrown exceptions are caught and the Promise
+// is rejected with the exception.
 maybePromise(syncSum.bind(null, 1, 'x').catch(err => console.error(err)); // TypeError
 
 function syncSum (a, b) {
@@ -33,7 +35,8 @@ function syncSum (a, b) {
   }
 }
 
-// If passed a function, invokes the function. If the function returns a Promise, simply returns the Promise.
+// If passed a function, invokes the function. If the function returns a Promise, simply
+// returns the Promise.
 maybePromise(asyncSum.bind(null, 1, 2)).then(res => console.log(res)); // 3
 maybePromise(asyncSum.bind(null, 1, 'x').catch(err => console.error(err)); // TypeError
 
@@ -46,13 +49,12 @@ function asyncSum (a, b) {
     }
   });
 }
+
+// Using other Promise implementations
+const Bluebird = require('bluebird');
+const maybePromise = require('maybe-promise-factory')(Bluebird);
 ```
 
-## maybePromiseFactory
+## Testing
 
-The maybePromiseFactory accepts two arguments:
-
-* {class} `promiseConstructor` A Promise implementation (e.g. `Bluebird` or `Promise`)
-* {boolean} `[useAnyThenable]` If truthy, any Promise implementation is considered a promise; otherwise, only instances of the `promiseConstructor` are considered promises.
-
-The maybePromiseFactory returns a maybePromise function, which is passed a function (synchronous or asynchronous) and any parameters to invoke it with. It returns an instance of `promiseConstructor`.
+Tests are written with Mocha and Should. They can be run with `npm test`.
