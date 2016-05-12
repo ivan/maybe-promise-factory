@@ -1,28 +1,30 @@
-"use strong";
-"use strict";
+'use strict';
 
 /**
  * Constructs a maybePromise function.
- * @param {class} promiseConstructor A Promise implementation (e.g. `Bluebird` or `Promise`)
- * @param {boolean} [useAnyThenable] If truthy, any Promise implementation is considered a promise; otherwise,
- * only instances of the `promiseConstructor` are considered promises.
- * @returns {Function} A function that takes a function and arguments. Invokes the function with arguments. If
- * the result of the function is a promise, it is returned. Otherwise, the result is converted to a promise.
- * If an error is thrown, a rejected promise is returned.
+ * @param {class} [PromiseImpl] A Promise implementation (e.g. `Bluebird` or `Promise`). If omitted, uses the built-in
+ * ES6 Promise class.
+ * @returns {Function} A maybePromise function. If passed a non-function, promisifies and returns the value. If passed a
+ * function, promisifying the result of the function and returning it.
  */
-module.exports = function maybePromiseFactory(promiseConstructor, useAnyThenable) {
-	return function maybePromise(f, ...args) {
-		let result;
-		try {
-			result = f.apply(null, args);
-		} catch(e) {
-			return promiseConstructor.reject(e);
+module.exports = function maybePromiseFactory (PromiseImpl) {
+	if (!PromiseImpl) { PromiseImpl = Promise; }
+	return function maybePromise (value) {
+		var result;
+		if (typeof value !== 'function') {
+			result = value;
+		} else {
+			try {
+				result = value();
+			} catch (ex) {
+				return PromiseImpl.reject(ex);
+			}
 		}
 
-		if(result instanceof promiseConstructor || (useAnyThenable && result && typeof result.then === 'function')) {
+		if (result && typeof result.then === 'function') {
 			return result;
 		} else {
-			return promiseConstructor.resolve(result);
+			return PromiseImpl.resolve(result);
 		}
 	};
-}
+};

@@ -1,7 +1,7 @@
 {
   "name": "maybe-promise-factory",
-  "version": "0.2.0",
-  "description": "Calls a function and wraps the retval or exception in a Promise only if it didn't already return a Promise; like Twisted's maybeDeferred. Turns a sync-or-Promise API into a Promise API.",
+  "version": "1.0.0",
+  "description": "The maybePromiseFactory normalizes synchronous values and asynchronous values by always returning a Promise.",
   "keywords": ["promise"],
   "main": "index.js",
   "repository": {
